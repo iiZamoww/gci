@@ -97,3 +97,16 @@ local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
 humanoidRootPart.CFrame = CFrame.new(-177, -26.7500057, 116, 0.0442736261, -2.08259987e-08, 0.999019444, -7.48706608e-09, 1, 2.11782449e-08, -0.999019444, -8.41736281e-09, 0.0442736261)
 end
 })
+
+local Button = TabTeleports:CreateButton({
+   Name = "Field",
+   Callback = function()
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
+local character = player.Character
+local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+
+humanoidRootPart.CFrame = CFrame.new(-14, -30, 30, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+end
+})
