@@ -1,25 +1,28 @@
-
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
-   Name = "Grass Cutting Incremental Script",
-   LoadingTitle = "GCI enhanced",
+   Name = "Grass Cutting Incremental",
+   Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
+   LoadingTitle = "Grass Cutting Incremental",
    LoadingSubtitle = "by iizmw",
+   ShowText = "GCI", -- for mobile users to unhide Rayfield, change if you'd like
    Theme = "Default", -- Check https://docs.sirius.menu/rayfield/configuration/themes
 
+   ToggleUIKeybind = "K", -- The keybind to toggle the UI visibility (string like "K" or Enum.KeyCode)
+
    DisableRayfieldPrompts = false,
-   DisableBuildWarnings = false, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
+   DisableBuildWarnings = false, -- Prevents Rayfield from emitting warnings when the script has a version mismatch with the interface.
 
    ConfigurationSaving = {
       Enabled = true,
       FolderName = nil, -- Create a custom folder for your hub/game
-      FileName = "GCI hub"
+      FileName = "Big Hub"
    },
 
    Discord = {
       Enabled = false, -- Prompt the user to join your Discord server if their executor supports it
-      Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ ABCD would be ABCD
-      RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+      Invite = "noinvitelink", -- The Discord invite code, do not include Discord.gg/. E.g. Discord.gg/ ABCD would be ABCD
+      RememberJoins = true -- Set this to false to make them join the Discord every time they load it up
    },
 
    KeySystem = false, -- Set this to true to use our key system
@@ -27,88 +30,93 @@ local Window = Rayfield:CreateWindow({
       Title = "Untitled",
       Subtitle = "Key System",
       Note = "No method of obtaining the key is provided", -- Use this to tell the user how to get a key
-      FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
+      FileName = "Key", -- It is recommended to use something unique, as other scripts using Rayfield may overwrite your key file
       SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
       GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
-      Key = {"Hello"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+      Key = {"Hello"} -- List of keys that the system will accept, can be RAW file links (pastebin, github, etc.) or simple strings ("hello", "key22")
    }
 })
 
+local Tab = Window:CreateTab("Cut", 4483362458)
 
-local TabMain = Window:CreateTab("Main", 4483362458) -- Title, Image
-local TabTeleports = Window:CreateTab("Teleports", 4483362458)
-local TabMisc = Window:CreateTab("Misc", 4483362458)
+local mainLoop = false
+local antiLoop = false
+local unLoop = false
+local planetLoop = false
+local observatoriumLoop = false
 
-local loopThread = nil -- This will store our running loop
+Tab:CreateToggle({
+   Name = "Main",
+   CurrentValue = false,
+   Flag = "mainLoopToggle",
+   Callback = function(Value) mainLoop = Value end,
+})
 
-local Toggle = TabMain:CreateToggle({
-    Name = "Infinite Collider Size",
-    CurrentValue = false,
-    Flag = "InfiniteColliderToggle",
-    Callback = function(Value)
-        -- Cancel any existing loop
-        if loopThread then
-            task.cancel(loopThread)
-            loopThread = nil
-        end
+Tab:CreateToggle({
+   Name = "Anti",
+   CurrentValue = false,
+   Flag = "antiLoopToggle",
+   Callback = function(Value) antiLoop = Value end,
+})
 
-        -- Only start new loop if toggled ON
-        if Value then
-            loopThread = task.spawn(function()
-                local GrassCollider = workspace:FindFirstChild("GrassCollider")
-                if GrassCollider then
-                    GrassCollider = GrassCollider:FindFirstChild("GrassCollider") or GrassCollider
-                end
+Tab:CreateToggle({
+   Name = "Unnatural",
+   CurrentValue = false,
+   Flag = "unLoopToggle",
+   Callback = function(Value) unLoop = Value end,
+})
 
-                while Value do  -- Will stop when Value becomes false
-                    if GrassCollider and GrassCollider:IsA("BasePart") then
-                        GrassCollider.Size = Vector3.new(20000, 100, 20000)
-                    else
-                        warn("GrassCollider missing or invalid!")
-                    end
-                    task.wait(0.05)
-                end
-            end)
-        end
+Tab:CreateToggle({
+   Name = "Planet",
+   CurrentValue = false,
+   Flag = "planetLoopToggle",
+   Callback = function(Value) planetLoop = Value end,
+})
+
+Tab:CreateToggle({
+   Name = "Observatorium",
+   CurrentValue = false,
+   Flag = "observatoriumLoopToggle",
+   Callback = function(Value) observatoriumLoop = Value end,
+})
+
+local remote = game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("GenericFunction")
+
+local function fireRemote(identifier, field, quantity)
+    remote:InvokeServer({ id = "cut", identifier = identifier, quantity = quantity, field = field })
+end
+
+task.spawn(function()
+    while true do
+        if mainLoop then fireRemote("pw8", "main", 1000) end
+        task.wait(0.01)
     end
-})
+end)
 
-local Slider = TabMisc:CreateSlider({
-   Name = "Collider Transparency",
-   Range = {0, 1},
-   Increment = 0.1,
-   Suffix = "Transparency",
-   CurrentValue = 1,
-   Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-   Callback = function(Value)
-   local workspace = game:GetService("Workspace")
-local GrassCollider = workspace.GrassCollider.GrassCollider
-GrassCollider.Transparency = Value
-   end,
-})
+task.spawn(function()
+    while true do
+        if antiLoop then fireRemote("pw8", "anti", 1000) end
+        task.wait(0.01)
+    end
+end)
 
-local Button = TabTeleports:CreateButton({
-   Name = "Field",
-   Callback = function()
-local Players = game:GetService("Players")
-local player = Players.LocalPlayer
+task.spawn(function()
+    while true do
+        if unLoop then fireRemote("pw8", "un", 1000) end
+        task.wait(0.01)
+    end
+end)
 
-local character = player.Character
-local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+task.spawn(function()
+    while true do
+        if planetLoop then fireRemote("pw8", "planet", 1000) end
+        task.wait(0.01)
+    end
+end)
 
-humanoidRootPart.CFrame = CFrame.new(-14, -30, 30, 1, 0, 0, 0, 1, 0, 0, 0, 1)
-end
-})
-
-local Button = TabTeleports:CreateButton({
-   Name = "Prestige",
-   Callback = function()
-local Players = game:GetService("Players")
-local player = Players.LocalPlayer
-
-local character = player.Character
-local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
-
-humanoidRootPart.CFrame = CFrame.new(-177, -26.7500057, 116, 0.0442736261, -2.08259987e-08, 0.999019444, -7.48706608e-09, 1, 2.11782449e-08, -0.999019444, -8.41736281e-09, 0.0442736261)
-end
-})
+task.spawn(function()
+    while true do
+        if observatoriumLoop then fireRemote("observatorium", "planet", 1) end
+        task.wait(0.01)
+    end
+end)
