@@ -120,3 +120,27 @@ task.spawn(function()
         task.wait(0.01)
     end
 end)
+
+local Tab = Window:CreateTab("Other", 4483362458)
+
+local infGrassCollider = false
+
+Tab:CreateToggle({
+   Name = "Inf range",
+   CurrentValue = false,
+   Flag = "infGrassColliderToggle",
+   Callback = function(Value)
+      infGrassCollider = Value
+   end,
+})
+
+local grassCollider = game:GetService("Workspace"):WaitForChild("GrassCollider"):WaitForChild("GrassCollider")
+
+task.spawn(function()
+    while true do
+        if infGrassCollider then
+            grassCollider.Size = Vector3.new(50000, 50000, 50000)
+        end
+        task.wait(0.05)
+    end
+end)
