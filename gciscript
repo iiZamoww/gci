@@ -38,93 +38,116 @@ local Window = Rayfield:CreateWindow({
 })
 
 local Tab = Window:CreateTab("Cut", 4483362458)
-
 local mainLoop = false
 local antiLoop = false
 local unLoop = false
 local planetLoop = false
 local observatoriumLoop = false
-
+local moonstoneLoop = false
+local platinumLoop = false
+local brassLoop = false
 Tab:CreateToggle({
    Name = "Main",
    CurrentValue = false,
    Flag = "mainLoopToggle",
    Callback = function(Value) mainLoop = Value end,
 })
-
 Tab:CreateToggle({
    Name = "Anti",
    CurrentValue = false,
    Flag = "antiLoopToggle",
    Callback = function(Value) antiLoop = Value end,
 })
-
 Tab:CreateToggle({
    Name = "Unnatural",
    CurrentValue = false,
    Flag = "unLoopToggle",
    Callback = function(Value) unLoop = Value end,
 })
-
 Tab:CreateToggle({
    Name = "Planet",
    CurrentValue = false,
    Flag = "planetLoopToggle",
    Callback = function(Value) planetLoop = Value end,
 })
-
 Tab:CreateToggle({
    Name = "Observatorium",
    CurrentValue = false,
    Flag = "observatoriumLoopToggle",
    Callback = function(Value) observatoriumLoop = Value end,
 })
-
+Tab:CreateToggle({
+   Name = "Moonstone",
+   CurrentValue = false,
+   Flag = "moonstoneLoopToggle",
+   Callback = function(Value) moonstoneLoop = Value end,
+})
+Tab:CreateToggle({
+   Name = "Platinum",
+   CurrentValue = false,
+   Flag = "platinumLoopToggle",
+   Callback = function(Value) platinumLoop = Value end,
+})
+Tab:CreateToggle({
+   Name = "Brass (Blue)",
+   CurrentValue = false,
+   Flag = "brassLoopToggle",
+   Callback = function(Value) brassLoop = Value end,
+})
 local remote = game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("GenericFunction")
-
 local function fireRemote(identifier, field, quantity)
     remote:InvokeServer({ id = "cut", identifier = identifier, quantity = quantity, field = field })
 end
-
 task.spawn(function()
     while true do
         if mainLoop then fireRemote("pw8", "main", 1000) end
         task.wait(0.01)
     end
 end)
-
 task.spawn(function()
     while true do
         if antiLoop then fireRemote("pw8", "anti", 1000) end
         task.wait(0.01)
     end
 end)
-
 task.spawn(function()
     while true do
         if unLoop then fireRemote("pw8", "un", 1000) end
         task.wait(0.01)
     end
 end)
-
 task.spawn(function()
     while true do
         if planetLoop then fireRemote("pw8", "planet", 1000) end
         task.wait(0.01)
     end
 end)
-
 task.spawn(function()
     while true do
         if observatoriumLoop then fireRemote("observatorium", "planet", 1) end
         task.wait(0.01)
     end
 end)
-
+task.spawn(function()
+    while true do
+        if moonstoneLoop then fireRemote("moonstone", "main", 1) end
+        task.wait(0.01)
+    end
+end)
+task.spawn(function()
+    while true do
+        if platinumLoop then fireRemote("platinum", "main", 1) end
+        task.wait(0.01)
+    end
+end)
+task.spawn(function()
+    while true do
+        if brassLoop then fireRemote("brass", "blue", 1) end
+        task.wait(0.01)
+    end
+end)
 local Tab = Window:CreateTab("Other", 4483362458)
-
 local infGrassCollider = false
-
 Tab:CreateToggle({
    Name = "Inf range",
    CurrentValue = false,
@@ -133,9 +156,7 @@ Tab:CreateToggle({
       infGrassCollider = Value
    end,
 })
-
 local grassCollider = game:GetService("Workspace"):WaitForChild("GrassCollider"):WaitForChild("GrassCollider")
-
 task.spawn(function()
     while true do
         if infGrassCollider then
