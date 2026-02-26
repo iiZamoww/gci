@@ -89,7 +89,7 @@ Tab:CreateToggle({
    Callback = function(Value) platinumLoop = Value end,
 })
 Tab:CreateToggle({
-   Name = "Brass (Blue)",
+   Name = "Brass",
    CurrentValue = false,
    Flag = "brassLoopToggle",
    Callback = function(Value) brassLoop = Value end,
