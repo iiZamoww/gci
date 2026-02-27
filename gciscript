@@ -46,6 +46,9 @@ local observatoriumLoop = false
 local moonstoneLoop = false
 local platinumLoop = false
 local brassLoop = false
+local jungleMainLoop = false
+local rubyLoop = false
+local cavernLoop = false
 Tab:CreateToggle({
    Name = "Main",
    CurrentValue = false,
@@ -93,6 +96,24 @@ Tab:CreateToggle({
    CurrentValue = false,
    Flag = "brassLoopToggle",
    Callback = function(Value) brassLoop = Value end,
+})
+Tab:CreateToggle({
+   Name = "Jungle Main",
+   CurrentValue = false,
+   Flag = "jungleMainLoopToggle",
+   Callback = function(Value) jungleMainLoop = Value end,
+})
+Tab:CreateToggle({
+   Name = "Ruby",
+   CurrentValue = false,
+   Flag = "rubyLoopToggle",
+   Callback = function(Value) rubyLoop = Value end,
+})
+Tab:CreateToggle({
+   Name = "Cavern",
+   CurrentValue = false,
+   Flag = "cavernLoopToggle",
+   Callback = function(Value) cavernLoop = Value end,
 })
 local remote = game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("GenericFunction")
 local function fireRemote(identifier, field, quantity)
@@ -143,6 +164,24 @@ end)
 task.spawn(function()
     while true do
         if brassLoop then fireRemote("brass", "blue", 1) end
+        task.wait(0.01)
+    end
+end)
+task.spawn(function()
+    while true do
+        if jungleMainLoop then fireRemote("pw8", "jungle", 10) end
+        task.wait(0.01)
+    end
+end)
+task.spawn(function()
+    while true do
+        if rubyLoop then fireRemote("ruby", "jungle", 1) end
+        task.wait(0.01)
+    end
+end)
+task.spawn(function()
+    while true do
+        if cavernLoop then fireRemote("pw8", "cavern", 10) end
         task.wait(0.01)
     end
 end)
