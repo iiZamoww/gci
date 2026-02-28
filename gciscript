@@ -49,6 +49,8 @@ local brassLoop = false
 local jungleMainLoop = false
 local rubyLoop = false
 local cavernLoop = false
+local runeLoop = false
+local intersectionLoop = false
 Tab:CreateToggle({
    Name = "Main",
    CurrentValue = false,
@@ -114,6 +116,18 @@ Tab:CreateToggle({
    CurrentValue = false,
    Flag = "cavernLoopToggle",
    Callback = function(Value) cavernLoop = Value end,
+})
+Tab:CreateToggle({
+   Name = "Rune",
+   CurrentValue = false,
+   Flag = "runeLoopToggle",
+   Callback = function(Value) runeLoop = Value end,
+})
+Tab:CreateToggle({
+   Name = "Intersection",
+   CurrentValue = false,
+   Flag = "intersectionLoopToggle",
+   Callback = function(Value) intersectionLoop = Value end,
 })
 local remote = game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("GenericFunction")
 local function fireRemote(identifier, field, quantity)
@@ -182,6 +196,18 @@ end)
 task.spawn(function()
     while true do
         if cavernLoop then fireRemote("pw8", "cavern", 10) end
+        task.wait(0.01)
+    end
+end)
+task.spawn(function()
+    while true do
+        if runeLoop then fireRemote("rune", "cavern", 1) end
+        task.wait(0.01)
+    end
+end)
+task.spawn(function()
+    while true do
+        if intersectionLoop then fireRemote("pw8", "intersection", 5) end
         task.wait(0.01)
     end
 end)
