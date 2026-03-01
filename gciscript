@@ -234,9 +234,10 @@ end)
 
 
 local Tab = Window:CreateTab("Others", 4483362458)
-
 local normSLoop = false
 local normSPerkLoop = false
+local normSCoolerPerkLoop = false
+local charge8Loop = false
 
 Tab:CreateToggle({
    Name = "normS",
@@ -250,10 +251,24 @@ Tab:CreateToggle({
    Flag = "normSPerkLoopToggle",
    Callback = function(Value) normSPerkLoop = Value end,
 })
+Tab:CreateToggle({
+   Name = "normS Cooler Perk",
+   CurrentValue = false,
+   Flag = "normSCoolerPerkLoopToggle",
+   Callback = function(Value) normSCoolerPerkLoop = Value end,
+})
+Tab:CreateToggle({
+   Name = "Charge 8",
+   CurrentValue = false,
+   Flag = "charge8LoopToggle",
+   Callback = function(Value) charge8Loop = Value end,
+})
 
-local remote = game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("GenericFunction")
+local GF = game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("GenericFunction")
+local GE = game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("GenericEvent")
+
 local function fireRemote(identifier, field, quantity)
-    remote:InvokeServer({ id = "cut", identifier = identifier, quantity = quantity, field = field })
+    GF:InvokeServer({ id = "cut", identifier = identifier, quantity = quantity, field = field })
 end
 
 task.spawn(function()
@@ -268,7 +283,18 @@ task.spawn(function()
         task.wait(0.01)
     end
 end)
-
+task.spawn(function()
+    while true do
+        if normSCoolerPerkLoop then fireRemote("perk2", "normS", 1) end
+        task.wait(0.01)
+    end
+end)
+task.spawn(function()
+    while true do
+        if charge8Loop then GE:FireServer({ id = "charge_8" }) end
+        task.wait(0.1)
+    end
+end)
 
 local Tab = Window:CreateTab("Utilities", 4483362458)
 local infGrassCollider = false
