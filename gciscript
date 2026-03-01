@@ -37,7 +37,8 @@ local Window = Rayfield:CreateWindow({
    }
 })
 
-local Tab = Window:CreateTab("Cut", 4483362458)
+local Tab = Window:CreateTab("W1", 4483362458)
+
 local mainLoop = false
 local antiLoop = false
 local unLoop = false
@@ -46,12 +47,6 @@ local observatoriumLoop = false
 local moonstoneLoop = false
 local platinumLoop = false
 local brassLoop = false
-local jungleMainLoop = false
-local rubyLoop = false
-local cavernLoop = false
-local runeLoop = false
-local intersectionLoop = false
-local understandLoop = false
 Tab:CreateToggle({
    Name = "Main",
    CurrentValue = false,
@@ -99,42 +94,6 @@ Tab:CreateToggle({
    CurrentValue = false,
    Flag = "brassLoopToggle",
    Callback = function(Value) brassLoop = Value end,
-})
-Tab:CreateToggle({
-   Name = "Jungle Main",
-   CurrentValue = false,
-   Flag = "jungleMainLoopToggle",
-   Callback = function(Value) jungleMainLoop = Value end,
-})
-Tab:CreateToggle({
-   Name = "Ruby",
-   CurrentValue = false,
-   Flag = "rubyLoopToggle",
-   Callback = function(Value) rubyLoop = Value end,
-})
-Tab:CreateToggle({
-   Name = "Cavern",
-   CurrentValue = false,
-   Flag = "cavernLoopToggle",
-   Callback = function(Value) cavernLoop = Value end,
-})
-Tab:CreateToggle({
-   Name = "Rune",
-   CurrentValue = false,
-   Flag = "runeLoopToggle",
-   Callback = function(Value) runeLoop = Value end,
-})
-Tab:CreateToggle({
-   Name = "Intersection",
-   CurrentValue = false,
-   Flag = "intersectionLoopToggle",
-   Callback = function(Value) intersectionLoop = Value end,
-})
-Tab:CreateToggle({
-   Name = "Understand",
-   CurrentValue = false,
-   Flag = "understandLoopToggle",
-   Callback = function(Value) understandLoop = Value end,
 })
 local remote = game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("GenericFunction")
 local function fireRemote(identifier, field, quantity)
@@ -188,6 +147,54 @@ task.spawn(function()
         task.wait(0.01)
     end
 end)
+local Tab = Window:CreateTab("W2", 4483362458)
+
+local jungleMainLoop = false
+local rubyLoop = false
+local cavernLoop = false
+local runeLoop = false
+local intersectionLoop = false
+local understandLoop = false
+Tab:CreateToggle({
+   Name = "Jungle Main",
+   CurrentValue = false,
+   Flag = "jungleMainLoopToggle",
+   Callback = function(Value) jungleMainLoop = Value end,
+})
+Tab:CreateToggle({
+   Name = "Ruby",
+   CurrentValue = false,
+   Flag = "rubyLoopToggle",
+   Callback = function(Value) rubyLoop = Value end,
+})
+Tab:CreateToggle({
+   Name = "Cavern",
+   CurrentValue = false,
+   Flag = "cavernLoopToggle",
+   Callback = function(Value) cavernLoop = Value end,
+})
+Tab:CreateToggle({
+   Name = "Rune",
+   CurrentValue = false,
+   Flag = "runeLoopToggle",
+   Callback = function(Value) runeLoop = Value end,
+})
+Tab:CreateToggle({
+   Name = "Intersection",
+   CurrentValue = false,
+   Flag = "intersectionLoopToggle",
+   Callback = function(Value) intersectionLoop = Value end,
+})
+Tab:CreateToggle({
+   Name = "Understand",
+   CurrentValue = false,
+   Flag = "understandLoopToggle",
+   Callback = function(Value) understandLoop = Value end,
+})
+local remote = game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("GenericFunction")
+local function fireRemote(identifier, field, quantity)
+    remote:InvokeServer({ id = "cut", identifier = identifier, quantity = quantity, field = field })
+end
 task.spawn(function()
     while true do
         if jungleMainLoop then fireRemote("pw8", "jungle", 10) end
@@ -220,11 +227,50 @@ task.spawn(function()
 end)
 task.spawn(function()
     while true do
-        if understandLoop then fireRemote("pw8", "understand", 5) end
+        if understandLoop then fireRemote("pw8", "understand", 1) end
         task.wait(0.01)
     end
 end)
-local Tab = Window:CreateTab("Other", 4483362458)
+
+
+local Tab = Window:CreateTab("Others", 4483362458)
+
+local normSLoop = false
+local normSPerkLoop = false
+
+Tab:CreateToggle({
+   Name = "normS",
+   CurrentValue = false,
+   Flag = "normSLoopToggle",
+   Callback = function(Value) normSLoop = Value end,
+})
+Tab:CreateToggle({
+   Name = "normS Perk",
+   CurrentValue = false,
+   Flag = "normSPerkLoopToggle",
+   Callback = function(Value) normSPerkLoop = Value end,
+})
+
+local remote = game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("GenericFunction")
+local function fireRemote(identifier, field, quantity)
+    remote:InvokeServer({ id = "cut", identifier = identifier, quantity = quantity, field = field })
+end
+
+task.spawn(function()
+    while true do
+        if normSLoop then fireRemote("pw8", "normS", 50) end
+        task.wait(0.01)
+    end
+end)
+task.spawn(function()
+    while true do
+        if normSPerkLoop then fireRemote("perk", "normS", 1) end
+        task.wait(0.01)
+    end
+end)
+
+
+local Tab = Window:CreateTab("Utilities", 4483362458)
 local infGrassCollider = false
 Tab:CreateToggle({
    Name = "Inf range",
