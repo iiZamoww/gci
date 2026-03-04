@@ -37,7 +37,7 @@ local Window = Rayfield:CreateWindow({
    }
 })
 
-local Tab = Window:CreateTab("W1", 4483362458)
+local Tab = Window:CreateTab("Cut", 4483362458)
 
 local mainLoop = false
 local antiLoop = false
@@ -147,7 +147,7 @@ task.spawn(function()
         task.wait(0.01)
     end
 end)
-local Tab = Window:CreateTab("W2", 4483362458)
+local Section = Tab:CreateSection("W2")
 
 local jungleMainLoop = false
 local rubyLoop = false
@@ -232,8 +232,8 @@ task.spawn(function()
     end
 end)
 
+local Section = Tab:CreateSection("W3")
 
-local Tab = Window:CreateTab("Others", 4483362458)
 local normSLoop = false
 local normSPerkLoop = false
 local normSCoolerPerkLoop = false
