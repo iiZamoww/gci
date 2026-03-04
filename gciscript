@@ -55,7 +55,7 @@ local remote = game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):Wait
 local function fireRemote(identifier, field, quantity)
     remote:InvokeServer({ id = "cut", identifier = identifier, quantity = quantity, field = field })
 end
-task.spawn(function() while true do if mainLoop then fireRemote("pw8", "main", 100) end task.wait(0.01) end end)
+task.spawn(function() while true do if mainLoop then fireRemote("pw8", "main", 10) end task.wait(0.01) end end)
 task.spawn(function() while true do if antiLoop then fireRemote("pw8", "anti", 100) end task.wait(0.01) end end)
 task.spawn(function() while true do if unLoop then fireRemote("pw8", "un", 100) end task.wait(0.01) end end)
 task.spawn(function() while true do if planetLoop then fireRemote("pw8", "planet", 100) end task.wait(0.01) end end)
