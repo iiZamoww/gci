@@ -72,12 +72,16 @@ local cavernLoop = false
 local runeLoop = false
 local intersectionLoop = false
 local understandLoop = false
+local cactusLoop = false
+local doomLoop = false
 Tab:CreateToggle({ Name = "Jungle Main", CurrentValue = false, Flag = "jungleMainLoopToggle", Callback = function(Value) jungleMainLoop = Value end })
 Tab:CreateToggle({ Name = "Ruby", CurrentValue = false, Flag = "rubyLoopToggle", Callback = function(Value) rubyLoop = Value end })
 Tab:CreateToggle({ Name = "Cavern", CurrentValue = false, Flag = "cavernLoopToggle", Callback = function(Value) cavernLoop = Value end })
 Tab:CreateToggle({ Name = "Rune", CurrentValue = false, Flag = "runeLoopToggle", Callback = function(Value) runeLoop = Value end })
 Tab:CreateToggle({ Name = "Intersection", CurrentValue = false, Flag = "intersectionLoopToggle", Callback = function(Value) intersectionLoop = Value end })
 Tab:CreateToggle({ Name = "Understand", CurrentValue = false, Flag = "understandLoopToggle", Callback = function(Value) understandLoop = Value end })
+Tab:CreateToggle({ Name = "Cactus", CurrentValue = false, Flag = "cactusLoopToggle", Callback = function(Value) cactusLoop = Value end })
+Tab:CreateToggle({ Name = "Doom", CurrentValue = false, Flag = "doomLoopToggle", Callback = function(Value) doomLoop = Value end })
 
 task.spawn(function() while true do if jungleMainLoop then fireRemote("pw8", "jungle", 10) end task.wait(0.01) end end)
 task.spawn(function() while true do if rubyLoop then fireRemote("ruby", "jungle", 1) end task.wait(0.01) end end)
@@ -85,6 +89,8 @@ task.spawn(function() while true do if cavernLoop then fireRemote("pw8", "cavern
 task.spawn(function() while true do if runeLoop then fireRemote("rune", "cavern", 1) end task.wait(0.01) end end)
 task.spawn(function() while true do if intersectionLoop then fireRemote("pw8", "intersection", 5) end task.wait(0.01) end end)
 task.spawn(function() while true do if understandLoop then fireRemote("pw8", "understand", 1) end task.wait(0.01) end end)
+task.spawn(function() while true do if cactusLoop then fireRemote("pw8", "desert", 5) end task.wait(0.01) end end)
+task.spawn(function() while true do if doomLoop then fireRemote("platinum", "desert", 1) end task.wait(0.01) end end)
 
 local mainCoolWorldSection = Tab:CreateSection("Cool World")
 
