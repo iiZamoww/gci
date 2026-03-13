@@ -100,7 +100,7 @@ task.spawn(function() while true do if cactusLoop then fireRemote("pw8", "desert
 task.spawn(function() while true do if doomLoop then fireRemote("platinum", "desert", 1) end task.wait(0.01) end end)
 task.spawn(function() while true do if stellarLoop then fireRemote("moonstone", "desert", 1) end task.wait(0.01) end end)
 task.spawn(function() while true do if upperLoop then fireRemote("moonstone", "temple", 1) end task.wait(0.01) end end)
-task.spawn(function() while true do if cactusTrialLoop then fireRemote("platinum", "temple", 1) end task.wait(0.01) end end)
+task.spawn(function() while true do if cactusTrialLoop then fireRemote("platinum", "cactus", 1) end task.wait(0.01) end end)
 
 
 local mainCoolWorldSection = Tab:CreateSection("Cool World")
