@@ -76,6 +76,7 @@ local cactusLoop = false
 local doomLoop = false
 local stellarLoop = false
 local upperLoop = false
+local cactusTrialLoop = false
 Tab:CreateToggle({ Name = "Jungle Main", CurrentValue = false, Flag = "jungleMainLoopToggle", Callback = function(Value) jungleMainLoop = Value end })
 Tab:CreateToggle({ Name = "Ruby", CurrentValue = false, Flag = "rubyLoopToggle", Callback = function(Value) rubyLoop = Value end })
 Tab:CreateToggle({ Name = "Cavern", CurrentValue = false, Flag = "cavernLoopToggle", Callback = function(Value) cavernLoop = Value end })
@@ -86,6 +87,8 @@ Tab:CreateToggle({ Name = "Cactus", CurrentValue = false, Flag = "cactusLoopTogg
 Tab:CreateToggle({ Name = "Doom", CurrentValue = false, Flag = "doomLoopToggle", Callback = function(Value) doomLoop = Value end })
 Tab:CreateToggle({ Name = "Stellar", CurrentValue = false, Flag = "stellarLoopToggle", Callback = function(Value) stellarLoop = Value end })
 Tab:CreateToggle({ Name = "Upper", CurrentValue = false, Flag = "upperLoopToggle", Callback = function(Value) upperLoop = Value end })
+Tab:CreateToggle({ Name = "Trials", CurrentValue = false, Flag = "cactusTrialLoopToggle", Callback = function(Value) cactusTrialLoop = Value end })
+
 
 task.spawn(function() while true do if jungleMainLoop then fireRemote("pw8", "jungle", 10) end task.wait(0.01) end end)
 task.spawn(function() while true do if rubyLoop then fireRemote("ruby", "jungle", 1) end task.wait(0.01) end end)
@@ -97,6 +100,7 @@ task.spawn(function() while true do if cactusLoop then fireRemote("pw8", "desert
 task.spawn(function() while true do if doomLoop then fireRemote("platinum", "desert", 1) end task.wait(0.01) end end)
 task.spawn(function() while true do if stellarLoop then fireRemote("moonstone", "desert", 1) end task.wait(0.01) end end)
 task.spawn(function() while true do if upperLoop then fireRemote("moonstone", "temple", 1) end task.wait(0.01) end end)
+task.spawn(function() while true do if cactusTrialLoop then fireRemote("platinum", "temple", 1) end task.wait(0.01) end end)
 
 
 local mainCoolWorldSection = Tab:CreateSection("Cool World")
