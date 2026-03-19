@@ -42,6 +42,7 @@ local observatoriumLoop = false
 local moonstoneLoop = false
 local platinumLoop = false
 local brassLoop = false
+
 Tab:CreateToggle({ Name = "Main", CurrentValue = false, Flag = "mainLoopToggle", Callback = function(Value) mainLoop = Value end })
 Tab:CreateToggle({ Name = "Anti", CurrentValue = false, Flag = "antiLoopToggle", Callback = function(Value) antiLoop = Value end })
 Tab:CreateToggle({ Name = "Unnatural", CurrentValue = false, Flag = "unLoopToggle", Callback = function(Value) unLoop = Value end })
@@ -79,6 +80,7 @@ local upperLoop = false
 local cactusTrialLoop = false
 local rareCactusTrialLoop = false
 local riftLoop = false
+
 Tab:CreateToggle({ Name = "Jungle Main", CurrentValue = false, Flag = "jungleMainLoopToggle", Callback = function(Value) jungleMainLoop = Value end })
 Tab:CreateToggle({ Name = "Ruby", CurrentValue = false, Flag = "rubyLoopToggle", Callback = function(Value) rubyLoop = Value end })
 Tab:CreateToggle({ Name = "Cavern", CurrentValue = false, Flag = "cavernLoopToggle", Callback = function(Value) cavernLoop = Value end })
@@ -108,6 +110,24 @@ task.spawn(function() while true do if cactusTrialLoop then fireRemote("pw8", "c
 task.spawn(function() while true do if rareCactusTrialLoop then fireRemote("platinum", "cactus", 1) end task.wait(0.01) end end)
 task.spawn(function() while true do if riftLoop then fireRemote("pw8", "rift", 5) end task.wait(0.01) end end)
 
+local mainW3Section = Tab:CreateSection("W3")
+local f1Loop = false
+local f2Loop = false
+local f3Loop = false
+local f4Loop = false
+local f5Loop = false
+
+Tab:CreateToggle({ Name = "Floor 1", CurrentValue = false, Flag = "f1LoopToggle", Callback = function(Value) f1Loop = Value end })
+Tab:CreateToggle({ Name = "Floor 2", CurrentValue = false, Flag = "f2LoopToggle", Callback = function(Value) f2Loop = Value end })
+Tab:CreateToggle({ Name = "Floor 3", CurrentValue = false, Flag = "f3LoopToggle", Callback = function(Value) f3Loop = Value end })
+Tab:CreateToggle({ Name = "Floor 4", CurrentValue = false, Flag = "f4LoopToggle", Callback = function(Value) f4Loop = Value end })
+Tab:CreateToggle({ Name = "Floor 5", CurrentValue = false, Flag = "f5LoopToggle", Callback = function(Value) f5Loop = Value end })
+
+task.spawn(function() while true do if f1Loop then fireRemote("platinum", "9_F1", 1) end task.wait(0.01) end end)
+task.spawn(function() while true do if f2Loop then fireRemote("ruby", "9_F2", 1) end task.wait(0.01) end end)
+task.spawn(function() while true do if f3Loop then fireRemote("pw8", "9_F3", 1) end task.wait(0.01) end end)
+task.spawn(function() while true do if f4Loop then fireRemote("rune", "9_F4", 1) end task.wait(0.01) end end)
+task.spawn(function() while true do if f5Loop then fireRemote("pw8", "9_F5", 1) end task.wait(0.01) end end)
 
 local mainCoolWorldSection = Tab:CreateSection("Cool World")
 
