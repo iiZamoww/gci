@@ -1,0 +1,40 @@
+local FF = require(game:GetService("ReplicatedStorage").FieldFunctions)
+local Fields = require(game:GetService("ReplicatedStorage").Fields)
+local oldGetType = FF.GetType
+
+local function spawnOverride(grassType, field, duration, growSpeed, growAmount)
+    FF.GetType = function(p8, p9, p10)
+        return grassType
+    end
+    
+    local oldGrowSpeed = Fields.Fields[field].growSpeed
+    local oldGrowAmount = Fields.Fields[field].growAmount
+    
+    if growSpeed then Fields.Fields[field].growSpeed = growSpeed end
+    if growAmount then Fields.Fields[field].growAmount = growAmount end
+    
+    task.delay(duration, function()
+        FF.GetType = oldGetType
+        Fields.Fields[field].growSpeed = oldGrowSpeed
+        Fields.Fields[field].growAmount = oldGrowAmount
+        print("Override ended, back to normal")
+    end)
+    
+    print("Spawning " .. grassType .. " in " .. field .. " for " .. duration .. " seconds")
+end
+
+-- Usage: spawnOverride("platinum", "main", 30, 100, 50)
+spawnOverride("iridium", "rift", 5, 100, 10)
+
+
+local upgradeIds = {"bridge", "bridge2", "bridge3"}
+
+for i = 1, #upgradeIds do
+local args = {
+    {
+        id = "buyUpgrade",
+        mode = "max",
+        upgradeId = upgradeIds[i]
+    }
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("GenericEvent"):FireServer(unpack(args))
